@@ -18,7 +18,6 @@ const Banner = () => {
             </p>
             <div>
               <button className="btn btn-outline btn-success">
-                {" "}
                 Share Food!
               </button>
             </div>
@@ -73,7 +72,6 @@ const Banner = () => {
             </p>
             <div>
               <button className="btn btn-outline btn-success">
-                {" "}
                 Share Food!
               </button>
             </div>
@@ -101,7 +99,6 @@ const Banner = () => {
             </p>
             <div>
               <button className="btn btn-outline btn-success">
-                {" "}
                 Share Food!
               </button>
             </div>

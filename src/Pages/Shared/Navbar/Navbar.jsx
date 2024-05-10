@@ -4,7 +4,7 @@ const Navbar = () => {
   const navLink = (
     <>
       <li>
-        <Link className="font-bold" to="/home">
+        <Link className="font-bold" to="/">
           Home
         </Link>
       </li>
@@ -64,7 +64,9 @@ const Navbar = () => {
           <ul className="menu menu-horizontal px-1">{navLink}</ul>
         </div>
         <div className="navbar-end">
-          <button className="btn btn-outline btn-success">LOG IN</button>
+          <Link to="/login">
+            <button className="btn btn-outline btn-success">LOG IN</button>
+          </Link>
         </div>
       </div>
     </div>
