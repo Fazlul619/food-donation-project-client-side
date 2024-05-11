@@ -36,6 +36,7 @@ const Register = () => {
       .then((result) => {
         console.log(result);
         toast.success("User Created Successfully");
+        registerSuccess;
       })
       .catch((error) => {
         console.log(error);
