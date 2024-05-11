@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
+import Swal from "sweetalert2";
 
 const AddFood = () => {
   const { user } = useContext(AuthContext);
@@ -44,6 +45,26 @@ const AddFood = () => {
     form.expireDate.value = "";
 
     console.log(foodItem);
+    // send data to the server
+    fetch("http://localhost:5000/foodItem", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(foodItem),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.insertedId) {
+          Swal.fire({
+            title: "Success",
+            text: "Food Item Added Successfully",
+            icon: "success",
+            confirmButtonText: "ok",
+          });
+        }
+      });
   };
 
   return (
