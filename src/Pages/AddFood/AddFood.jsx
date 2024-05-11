@@ -173,8 +173,8 @@ const AddFood = () => {
                 className="select select-bordered"
               >
                 <option>Food Status</option>
-                <option value="Available">Available</option>
-                <option value="Not available">Not available</option>
+                <option value="available">available</option>
+                <option value="requested">requested</option>
               </select>
             </label>
           </div>

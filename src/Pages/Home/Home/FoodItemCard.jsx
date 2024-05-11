@@ -1,6 +1,7 @@
 import clockImg from "../../../assets/banner img/3898370_time_clock_icon.png";
 import peopleImg from "../../../assets/banner img/3289562_family_group_peers_people_icon.png";
 import donarImg from "../../../assets/banner img/5402435_account_profile_user_avatar_man_icon.png";
+import { Link } from "react-router-dom";
 const FoodItemCard = ({ foodItem }) => {
   const {
     _id,
@@ -53,9 +54,11 @@ const FoodItemCard = ({ foodItem }) => {
             </div>
           </div>
           <div className="card-actions justify-end">
-            <button className="btn btn-outline btn-success">
-              View Details
-            </button>
+            <Link to={`foodItemViewDetails/${_id}`}>
+              <button className="btn btn-outline btn-success">
+                View Details
+              </button>
+            </Link>
           </div>
         </div>
       </div>
