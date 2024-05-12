@@ -36,15 +36,14 @@ const FoodItemViewDetails = () => {
   const theStatus = "requested";
 
   const updatedFood = {
-    ...food,
     additionalNotes: additionalNote,
     theStatus,
   };
   console.log(additionalNote);
 
-  const handleFoodRequest = () => {
-    fetch(`http://localhost:5000/foodItem/${_id}`, {
-      method: "PUT",
+  const handleFoodRequest = (id) => {
+    fetch(`http://localhost:5000/foodItem/${id}`, {
+      method: "PATCH",
       headers: {
         "content-type": "application/json",
       },
@@ -53,7 +52,7 @@ const FoodItemViewDetails = () => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        if (data.insertedId) {
+        if (data.modifiedCount > 0) {
           Swal.fire({
             title: "Success",
             text: "You have requested the food successfully",
@@ -293,7 +292,7 @@ const FoodItemViewDetails = () => {
 
                   <AlertDialogFooter>
                     <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <AlertDialogAction onClick={handleFoodRequest}>
+                    <AlertDialogAction onClick={() => handleFoodRequest(_id)}>
                       Request
                     </AlertDialogAction>
                   </AlertDialogFooter>
