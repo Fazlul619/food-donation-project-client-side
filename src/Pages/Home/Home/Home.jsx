@@ -15,7 +15,7 @@ const Home = () => {
             with love. Join us in fighting hunger, one bite at a time.
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 justify-items-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 justify-items-center mb-10">
           {foodItems.map((foodItem) => (
             <FoodItemCard key={foodItem._id} foodItem={foodItem}></FoodItemCard>
           ))}
