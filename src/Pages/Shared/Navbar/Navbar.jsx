@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../Providers/AuthProvider";
-
+import logoImg from "../../../assets/banner img/10559920_food_aid_support_donation_charity_icon.png";
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
   const handleSignOut = () => {
@@ -65,7 +65,8 @@ const Navbar = () => {
               {navLink}
             </ul>
           </div>
-          <a className="btn btn-ghost text-xl">daisyUI</a>
+          <img src={logoImg} alt="" />
+          <a className="text-xl font-bold ml-4 ">SustenanceSwap</a>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">{navLink}</ul>

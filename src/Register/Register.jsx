@@ -47,7 +47,7 @@ const Register = () => {
     <div className="hero min-h-screen my-5">
       <img className="h-full w-full rounded-xl opacity-75" src={img} alt="" />
       <div className="hero-content flex-col lg:flex-row ">
-        <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+        <div className="card shrink-0 w-96 shadow-2xl bg-base-100">
           <form onSubmit={handleRegister} className="card-body">
             <h1 className="text-3xl text-center font-bold">Register</h1>
             <div className="form-control">
