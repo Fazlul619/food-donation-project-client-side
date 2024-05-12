@@ -3,18 +3,69 @@ import bgImage from "../../assets/banner img/food-donations-to-fight-hunger-by-s
 import clockImg from "../../assets/banner img/3898370_time_clock_icon.png";
 import peopleImg from "../../assets/banner img/3289562_family_group_peers_people_icon.png";
 
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import Swal from "sweetalert2";
+
 const FoodItemViewDetails = () => {
   const food = useLoaderData();
   const {
     foodImage,
     foodName,
     foodQuantity,
-
+    email,
+    _id,
     name,
     pickupLocation,
     expireDate,
     additionalNotes,
   } = food;
+
+  const [additionalNote, setAdditionalNote] = useState(additionalNotes);
+  const theStatus = "requested";
+
+  const updatedFood = {
+    ...food,
+    additionalNotes: additionalNote,
+    theStatus,
+  };
+  console.log(additionalNote);
+
+  const handleFoodRequest = () => {
+    fetch(`http://localhost:5000/foodItem/${_id}`, {
+      method: "PUT",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(updatedFood),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.insertedId) {
+          Swal.fire({
+            title: "Success",
+            text: "You have requested the food successfully",
+            icon: "success",
+            confirmButtonText: "ok",
+          });
+        }
+      });
+  };
+
+  const currentDate = new Date();
+
   return (
     <div className="mb-10">
       <section className="relative">
@@ -65,14 +116,189 @@ const FoodItemViewDetails = () => {
                   <p className="text-xl">{foodQuantity}</p>
                 </div>
               </div>
-              <div className="flex items-center">
-                <a
-                  href="#"
-                  className=" mr-5 inline-block rounded-full bg-[#c9fd02] px-6 py-4 text-center font-bold text-black transition hover:border-black hover:bg-white md:mr-6 lg:mr-8"
-                >
-                  Request
-                </a>
-              </div>
+
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <div className="flex items-center">
+                    <Button
+                      className="bg-[#c9fd02]
+                      px-6 py-4 text-center font-bold text-black transition
+                      hover:border-black hover:bg-white md:mr-6 lg:mr-8 text-lg"
+                    >
+                      Request
+                    </Button>
+                  </div>
+                </AlertDialogTrigger>
+
+                <AlertDialogContent className="overflow-auto h-full">
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>
+                      Hi, here is the details of the food item you are going to
+                      request!
+                    </AlertDialogTitle>
+
+                    <AlertDialogDescription className="flex flex-col gap-3">
+                      <span>
+                        Please check and you can add an additional note if you
+                        would like! Then just request.
+                      </span>
+                      <span className="flex flex-col gap-3">
+                        <span>
+                          <label
+                            htmlFor="foodName"
+                            className="text-black font-medium"
+                          >
+                            Name
+                          </label>
+
+                          <input
+                            disabled
+                            value={foodName}
+                            id="foodName"
+                            className="input w-full font-semibold mt-2"
+                          />
+                        </span>
+
+                        <span className="flex items-start gap-3">
+                          <span>
+                            <label className="text-black font-medium ">
+                              Image
+                            </label>
+
+                            <img
+                              src={foodImage}
+                              alt={foodName}
+                              className="h-[80px] w-[200px] object-cover rounded-md mt-2"
+                            />
+                          </span>
+                          <span>
+                            <label
+                              htmlFor="foodId"
+                              className="text-black font-medium"
+                            >
+                              ID
+                            </label>
+
+                            <input
+                              disabled
+                              value={_id}
+                              id="foodId"
+                              className="input w-full font-semibold mt-2"
+                            />
+                          </span>
+                        </span>
+
+                        <span className="flex items-start gap-3">
+                          <span>
+                            <label
+                              htmlFor="user_email"
+                              className="text-black font-medium"
+                            >
+                              Your Email
+                            </label>
+
+                            <input
+                              disabled
+                              value={email ? email : "Not Found!"}
+                              id="user_email"
+                              className="input w-full font-semibold mt-2"
+                            />
+                          </span>
+                          <span>
+                            <label
+                              htmlFor="foodId"
+                              className="text-black font-medium"
+                            >
+                              Donator&apos;s Name
+                            </label>
+
+                            <input
+                              disabled
+                              value={name}
+                              id="foodId"
+                              className="input w-full font-semibold mt-2"
+                            />
+                          </span>
+                        </span>
+
+                        <span className="flex items-start gap-3">
+                          <span>
+                            <label
+                              htmlFor="user_email"
+                              className="text-black font-medium"
+                            >
+                              Request Date
+                            </label>
+
+                            <input
+                              disabled
+                              value={currentDate}
+                              id="user_email"
+                              className="input w-full font-semibold mt-2"
+                            />
+                          </span>
+                          <span>
+                            <label
+                              htmlFor="foodId"
+                              className="text-black font-medium"
+                            >
+                              Pick Up Location
+                            </label>
+
+                            <input
+                              disabled
+                              value={pickupLocation}
+                              id="foodId"
+                              className="input w-full font-semibold mt-2"
+                            />
+                          </span>
+                        </span>
+
+                        <span className="flex items-start gap-3">
+                          <span className="w-full">
+                            <label
+                              htmlFor="user_email"
+                              className="font-medium text-red-500 "
+                            >
+                              Expire Date
+                            </label>
+
+                            <input
+                              disabled
+                              value={expireDate}
+                              id="user_email"
+                              className="input w-full font-semibold mt-2"
+                            />
+                          </span>
+                        </span>
+
+                        <span className="w-full">
+                          <label
+                            htmlFor="additionalNotes"
+                            className="font-medium text-black"
+                          >
+                            Additional Notes
+                          </label>
+
+                          <input
+                            value={additionalNote}
+                            onChange={(e) => setAdditionalNote(e.target.value)}
+                            id="additionalNotes"
+                            className="input w-full font-semibold mt-2 bg-gray-100"
+                          />
+                        </span>
+                      </span>
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogAction onClick={handleFoodRequest}>
+                      Request
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
             </div>
             {/* Image Div */}
             <div>

@@ -74,7 +74,7 @@ const AddFood = () => {
         {/* form row food name and food image */}
         <div className="md:flex">
           <div className="md: w-1/2">
-            <label className="form-control ">
+            <label className="form-control">
               <div className="label">
                 <span className="label-text">Food Name</span>
               </div>
