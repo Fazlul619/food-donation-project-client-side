@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const ManageMyFoodTable = ({ Foods, handleDelete }) => {
   const { _id, foodName, name, email, pickupLocation, foodQuantity, photo } =
     Foods;
@@ -30,7 +32,9 @@ const ManageMyFoodTable = ({ Foods, handleDelete }) => {
       <td>{pickupLocation}</td>
       <td>{foodQuantity}</td>
       <th>
-        <button className="btn btn-outline btn-success">Update</button>
+        <Link to={`/updateAFood/${_id}`}>
+          <button className="btn btn-outline btn-success">Update</button>
+        </Link>
       </th>
       <th>
         <button
