@@ -4,6 +4,7 @@ import { AuthContext } from "../../../Providers/AuthProvider";
 import logoImg from "../../../assets/banner img/10559920_food_aid_support_donation_charity_icon.png";
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
+
   const handleSignOut = () => {
     logOut().then().catch();
   };
@@ -25,11 +26,16 @@ const Navbar = () => {
           Add Food
         </Link>
       </li>
-      <li>
-        <Link className="font-bold" to="/manageMyFoods">
-          Manage My Foods
-        </Link>
-      </li>
+      {user ? (
+        <li>
+          <Link className="font-bold" to="/manageMyFoods">
+            Manage My Foods
+          </Link>
+        </li>
+      ) : (
+        ""
+      )}
+
       <li>
         <Link className="font-bold" to="/myFoodRequest">
           My Food Request
