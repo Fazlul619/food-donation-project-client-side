@@ -1,6 +1,7 @@
 import { Link, useLoaderData } from "react-router-dom";
 import Banner from "../Banner/Banner";
 import FoodItemCard from "./FoodItemCard";
+import OurTeamMembers from "./OurTeamMembers";
 
 const Home = () => {
   const foodItems = useLoaderData();
@@ -34,6 +35,7 @@ const Home = () => {
           <button className="btn btn-outline btn-success">Show All</button>
         </Link>
       </div>
+      <OurTeamMembers></OurTeamMembers>
     </div>
   );
 };
