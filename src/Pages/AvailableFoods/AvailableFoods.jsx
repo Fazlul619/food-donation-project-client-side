@@ -106,8 +106,10 @@ const AvailableFoods = () => {
       </div>
 
       <div
-        className={`grid w-full ${
-          layoutStatus ? "grid-cols-2" : " grid-cols-3"
+        className={`grid w-full${
+          layoutStatus
+            ? "grid-cols-1 md:grid-cols-2 lg:grid-cols-2"
+            : "grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
         }`}
       >
         {sortedData.map((food) => {
@@ -126,7 +128,10 @@ const AvailableFoods = () => {
           } = food;
 
           return (
-            <div key={_id} className=" mb-4 w-96 bg-base-100 shadow-xl ">
+            <div
+              key={_id}
+              className=" mb-4 w-96  border rounded-xl border-green-400"
+            >
               <div className="flex gap-2  p-4">
                 <img
                   className="w-6 h-6 rounded-xl"

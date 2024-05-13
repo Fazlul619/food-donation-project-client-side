@@ -6,14 +6,19 @@ import Swal from "sweetalert2";
 const ManageMyFoods = () => {
   const { user } = useContext(AuthContext);
 
-  const [myFoods, setMyFoods] = useState([]);
+  const [foodData, setFoodData] = useState([]);
 
-  const url = `http://localhost:5000/foodItem?email=${user.email}:name=${user.displayName}`;
   useEffect(() => {
-    fetch(url)
+    fetch("http://localhost:5000/foodItem", { credentials: "include" })
       .then((res) => res.json())
-      .then((data) => setMyFoods(data));
-  }, [url]);
+      .then((data) => setFoodData(data));
+  }, []);
+
+  const filteredFoodData = foodData.filter((myFoods) =>
+    myFoods.email && user.email
+      ? myFoods.email === user.email
+      : myFoods.name === user.displayName
+  );
 
   const handleDelete = (id) => {
     Swal.fire({
@@ -39,8 +44,8 @@ const ManageMyFoods = () => {
                 icon: "success",
               });
             }
-            const remaining = myFoods.filter((foods) => foods._id !== id);
-            setMyFoods(remaining);
+            const updatedFoodData = foodData.filter((food) => food._id !== id);
+            setFoodData(updatedFoodData);
           });
       }
     });
@@ -62,7 +67,7 @@ const ManageMyFoods = () => {
             </tr>
           </thead>
           <tbody>
-            {myFoods.map((Foods) => (
+            {filteredFoodData.map((Foods) => (
               <ManageMyFoodTable
                 key={Foods._id}
                 Foods={Foods}
