@@ -34,7 +34,7 @@ const FoodItemViewDetails = () => {
 
   const [additionalNote, setAdditionalNote] = useState(additionalNotes);
   const theStatus = "requested";
-
+  // const requestedDate = currentDate;
   const updatedFood = {
     additionalNotes: additionalNote,
     theStatus,
