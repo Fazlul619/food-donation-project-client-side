@@ -2,6 +2,7 @@ import { Link, useLoaderData } from "react-router-dom";
 import Banner from "../Banner/Banner";
 import FoodItemCard from "./FoodItemCard";
 import OurTeamMembers from "./OurTeamMembers";
+import OurDonation from "./OurDonation";
 
 const Home = () => {
   const foodItems = useLoaderData();
@@ -17,8 +18,10 @@ const Home = () => {
       <Banner></Banner>
       <div className="w-full">
         <div className="my-6">
-          <h1 className="text-center text-2xl font-bold">Featured Foods</h1>
-          <p className="text-center">
+          <h1 className="text-3xl font-semibold md:text-5xl text-center">
+            Featured Foods
+          </h1>
+          <p className="text-center m-2">
             Explore our Featured Foods: a showcase of delicious meals donated
             with love. Join us in fighting hunger, one bite at a time.
           </p>
@@ -35,6 +38,16 @@ const Home = () => {
           <button className="btn btn-outline btn-success">Show All</button>
         </Link>
       </div>
+      <div className="my-6">
+        <h1 className="text-3xl font-semibold md:text-5xl text-center">
+          Our Top Donation
+        </h1>
+        <p className="text-center mt-2">
+          Our top donation shines as a symbol of profound generosity, lighting
+          the way toward a brighter tomorrow for all in need.
+        </p>
+      </div>
+      <OurDonation></OurDonation>
       <OurTeamMembers></OurTeamMembers>
     </div>
   );
