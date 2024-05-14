@@ -9,7 +9,9 @@ const ManageMyFoods = () => {
   const [foodData, setFoodData] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/foodItem", { credentials: "include" })
+    fetch("http://localhost:5000/foodItem/manageMyFood", {
+      credentials: "include",
+    })
       .then((res) => res.json())
       .then((data) => setFoodData(data));
   }, []);

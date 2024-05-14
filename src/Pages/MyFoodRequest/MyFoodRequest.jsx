@@ -21,6 +21,7 @@ const MyFoodRequest = () => {
                 <th> Pick Up Location</th>
                 <th>Quantity</th>
                 <th>Expire Date</th>
+                <th>Requested Date</th>
                 <th>Status</th>
               </tr>
             </thead>

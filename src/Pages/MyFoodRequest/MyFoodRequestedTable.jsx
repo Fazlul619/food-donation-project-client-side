@@ -1,3 +1,5 @@
+import { format } from "date-fns";
+
 const MyFoodRequestedTable = ({ Foods }) => {
   const {
     foodName,
@@ -8,6 +10,8 @@ const MyFoodRequestedTable = ({ Foods }) => {
     photo,
     expireDate,
     Status,
+
+    requestedDate,
   } = Foods;
 
   return (
@@ -39,6 +43,7 @@ const MyFoodRequestedTable = ({ Foods }) => {
       <td>{pickupLocation}</td>
       <td>{foodQuantity}</td>
       <th>{expireDate}</th>
+      <th>{requestedDate && format(new Date(requestedDate), "yyyy-MM-dd")}</th>
       <th>{Status}</th>
     </tr>
   );

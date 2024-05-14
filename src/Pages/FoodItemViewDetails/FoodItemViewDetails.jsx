@@ -38,6 +38,7 @@ const FoodItemViewDetails = () => {
   const updatedFood = {
     additionalNotes: additionalNote,
     theStatus,
+    requestedDate: new Date(),
   };
   console.log(additionalNote);
 
