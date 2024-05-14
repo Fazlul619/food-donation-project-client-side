@@ -5,7 +5,9 @@ import { AiFillCloseCircle } from "react-icons/ai";
 import clockImg from "../../assets/banner img/3898370_time_clock_icon.png";
 import peopleImg from "../../assets/banner img/3289562_family_group_peers_people_icon.png";
 import donarImg from "../../assets/banner img/5402435_account_profile_user_avatar_man_icon.png";
+import { Helmet } from "react-helmet";
 const AvailableFoods = () => {
+  const [title, setTitle] = useState("Available Foods");
   const data = useLoaderData();
   const [layoutStatus, setLayoutStatus] = useState(false);
   const [searchedWords, setSearchedWords] = useState("");
@@ -29,6 +31,10 @@ const AvailableFoods = () => {
 
   return (
     <>
+      <Helmet>
+        <title>SustenanceSwap|{title}</title>
+      </Helmet>
+
       <div className="mb-5 w-full relative">
         <div className="relative">
           <input

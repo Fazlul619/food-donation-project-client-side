@@ -2,8 +2,9 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
 import ManageMyFoodTable from "./ManageMyFoodTable";
 import Swal from "sweetalert2";
-
+import { Helmet } from "react-helmet";
 const ManageMyFoods = () => {
+  const [title, setTitle] = useState("Manage My Foods");
   const { user } = useContext(AuthContext);
 
   const [foodData, setFoodData] = useState([]);
@@ -55,6 +56,9 @@ const ManageMyFoods = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>SustenanceSwap|{title}</title>
+      </Helmet>
       <div className="overflow-x-auto">
         <table className="table">
           {/* head */}

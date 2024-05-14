@@ -1,7 +1,10 @@
 import { useLoaderData } from "react-router-dom";
 import MyFoodRequestedTable from "./MyFoodRequestedTable";
+import { Helmet } from "react-helmet";
+import { useState } from "react";
 
 const MyFoodRequest = () => {
+  const [title, setTitle] = useState("My Food Request");
   const requestedFoodData = useLoaderData();
   const requestedFood = requestedFoodData.filter(
     (food) => food.Status === "requested"
@@ -10,6 +13,9 @@ const MyFoodRequest = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>SustenanceSwap|{title}</title>
+      </Helmet>
       <div>
         <div className="overflow-x-auto">
           <table className="table">

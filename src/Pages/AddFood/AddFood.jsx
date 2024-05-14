@@ -1,8 +1,10 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet";
 
 const AddFood = () => {
+  const [title, setTitle] = useState("Add Food");
   const { user } = useContext(AuthContext);
   console.log(user);
 
@@ -68,123 +70,128 @@ const AddFood = () => {
   };
 
   return (
-    <div className="bg-[#F4F3F0] p-24 my-5 rounded-xl">
-      <h2 className="text-3xl font-extrabold">Add Your Food</h2>
-      <form onSubmit={handleAddFood}>
-        {/* form row food name and food image */}
-        <div className="md:flex">
-          <div className="md: w-1/2">
-            <label className="form-control">
-              <div className="label">
-                <span className="label-text">Food Name</span>
-              </div>
-              <input
-                type="text"
-                name="foodName"
-                placeholder="Food Name"
-                className="input input-bordered w-full"
-              />
-            </label>
+    <div>
+      <Helmet>
+        <title>SustenanceSwap|{title}</title>
+      </Helmet>
+      <div className="bg-[#F4F3F0] p-24 my-5 rounded-xl">
+        <h2 className="text-3xl font-extrabold">Add Your Food</h2>
+        <form onSubmit={handleAddFood}>
+          {/* form row food name and food image */}
+          <div className="md:flex">
+            <div className="md: w-1/2">
+              <label className="form-control">
+                <div className="label">
+                  <span className="label-text">Food Name</span>
+                </div>
+                <input
+                  type="text"
+                  name="foodName"
+                  placeholder="Food Name"
+                  className="input input-bordered w-full"
+                />
+              </label>
+            </div>
+            <div className="md: w-1/2 ml-4">
+              <label className="form-control">
+                <div className="label">
+                  <span className="label-text">Food Image</span>
+                </div>
+                <input
+                  type="text"
+                  name="foodImage"
+                  placeholder="Food Image"
+                  className="input input-bordered w-full"
+                />
+              </label>
+            </div>
           </div>
-          <div className="md: w-1/2 ml-4">
-            <label className="form-control">
-              <div className="label">
-                <span className="label-text">Food Image</span>
-              </div>
-              <input
-                type="text"
-                name="foodImage"
-                placeholder="Food Image"
-                className="input input-bordered w-full"
-              />
-            </label>
-          </div>
-        </div>
 
-        {/* form Food Quantity and Pickup Location */}
-        <div className="md:flex">
-          <div className="md: w-1/2">
-            <label className="form-control ">
-              <div className="label">
-                <span className="label-text">Food Quantity</span>
-              </div>
-              <input
-                min={1}
-                type="number"
-                name="foodQuantity"
-                placeholder="Food Quantity"
-                className="input input-bordered w-full"
-              />
-            </label>
+          {/* form Food Quantity and Pickup Location */}
+          <div className="md:flex">
+            <div className="md: w-1/2">
+              <label className="form-control ">
+                <div className="label">
+                  <span className="label-text">Food Quantity</span>
+                </div>
+                <input
+                  min={1}
+                  type="number"
+                  name="foodQuantity"
+                  placeholder="Food Quantity"
+                  className="input input-bordered w-full"
+                />
+              </label>
+            </div>
+            <div className="md: w-1/2 ml-4">
+              <label className="form-control">
+                <div className="label">
+                  <span className="label-text">Pickup Location</span>
+                </div>
+                <input
+                  type="text"
+                  name="pickupLocation"
+                  placeholder="Pickup Location"
+                  className="input input-bordered w-full"
+                />
+              </label>
+            </div>
           </div>
-          <div className="md: w-1/2 ml-4">
-            <label className="form-control">
-              <div className="label">
-                <span className="label-text">Pickup Location</span>
-              </div>
-              <input
-                type="text"
-                name="pickupLocation"
-                placeholder="Pickup Location"
-                className="input input-bordered w-full"
-              />
-            </label>
+          {/* form row expire date and additional note */}
+          <div className="md:flex">
+            <div className="md: w-1/2">
+              <label className="form-control w-full">
+                <div className="label">
+                  <span className="label-text">Additional Notes</span>
+                </div>
+                <input
+                  type="text"
+                  name="additionalNotes"
+                  placeholder="Additional Notes"
+                  className="input input-bordered w-full"
+                />
+              </label>
+            </div>
+            <div className="md: w-1/2 ml-4">
+              <label className="form-control">
+                <div className="label">
+                  <span className="label-text">Expire Date</span>
+                </div>
+                <input
+                  type="date"
+                  name="expireDate"
+                  placeholder="Expire Date"
+                  className="input input-bordered w-full"
+                />
+              </label>
+            </div>
           </div>
-        </div>
-        {/* form row expire date and additional note */}
-        <div className="md:flex">
-          <div className="md: w-1/2">
-            <label className="form-control w-full">
-              <div className="label">
-                <span className="label-text">Additional Notes</span>
-              </div>
-              <input
-                type="text"
-                name="additionalNotes"
-                placeholder="Additional Notes"
-                className="input input-bordered w-full"
-              />
-            </label>
+          {/* Food status */}
+          <div className="md:flex mb-8 justify-center  items-center">
+            <div className="md: w-1/2">
+              <label className="form-control w-full">
+                <div className="label">
+                  <span className="label-text">Food Status</span>
+                </div>
+                <select
+                  value={Status}
+                  onChange={handleStatus}
+                  className="select select-bordered"
+                >
+                  <option>Food Status</option>
+                  <option value="available">available</option>
+                  <option value="requested">requested</option>
+                </select>
+              </label>
+            </div>
           </div>
-          <div className="md: w-1/2 ml-4">
-            <label className="form-control">
-              <div className="label">
-                <span className="label-text">Expire Date</span>
-              </div>
-              <input
-                type="date"
-                name="expireDate"
-                placeholder="Expire Date"
-                className="input input-bordered w-full"
-              />
-            </label>
-          </div>
-        </div>
-        {/* Food status */}
-        <div className="md:flex mb-8 justify-center  items-center">
-          <div className="md: w-1/2">
-            <label className="form-control w-full">
-              <div className="label">
-                <span className="label-text">Food Status</span>
-              </div>
-              <select
-                value={Status}
-                onChange={handleStatus}
-                className="select select-bordered"
-              >
-                <option>Food Status</option>
-                <option value="available">available</option>
-                <option value="requested">requested</option>
-              </select>
-            </label>
-          </div>
-        </div>
-        <input
-          type="submit"
-          value="Add"
-          className="btn btn-block btn-outline btn-success"
-        />
-      </form>
+          <input
+            type="submit"
+            value="Add"
+            className="btn btn-block btn-outline btn-success"
+          />
+        </form>
+      </div>
     </div>
   );
 };

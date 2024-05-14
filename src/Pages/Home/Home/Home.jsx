@@ -3,8 +3,10 @@ import Banner from "../Banner/Banner";
 import FoodItemCard from "./FoodItemCard";
 import OurTeamMembers from "./OurTeamMembers";
 import OurDonation from "./OurDonation";
-
+import { Helmet } from "react-helmet";
+import { useState } from "react";
 const Home = () => {
+  const [title, setTitle] = useState("HOME");
   const foodItems = useLoaderData();
 
   const sortedQuantity = foodItems.slice().sort((a, b) => {
@@ -15,6 +17,9 @@ const Home = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>SustenanceSwap|{title}</title>
+      </Helmet>
       <Banner></Banner>
       <div className="w-full">
         <div className="my-6">
