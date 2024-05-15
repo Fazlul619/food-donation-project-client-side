@@ -27,7 +27,7 @@ const AvailableFoods = () => {
       })
     : availableFood;
 
-  console.log(sortedData);
+  // console.log(sortedData);
 
   return (
     <>

@@ -9,7 +9,7 @@ const MyFoodRequest = () => {
   const requestedFood = requestedFoodData.filter(
     (food) => food.Status === "requested"
   );
-  console.log(requestedFood);
+  // console.log(requestedFood);
 
   return (
     <div>
