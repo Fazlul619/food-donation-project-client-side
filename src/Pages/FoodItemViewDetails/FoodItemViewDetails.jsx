@@ -41,10 +41,10 @@ const FoodItemViewDetails = () => {
     theStatus,
     requestedDate: new Date(),
   };
-  console.log(additionalNote);
+  // console.log(additionalNote);
 
   const handleFoodRequest = (id) => {
-    fetch(`http://localhost:5000/foodItem/${id}`, {
+    fetch(`https://food-web-server-side.vercel.app/foodItem/${id}`, {
       method: "PATCH",
       headers: {
         "content-type": "application/json",
@@ -53,7 +53,7 @@ const FoodItemViewDetails = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         if (data.modifiedCount > 0) {
           Swal.fire({
             title: "Success",

@@ -48,9 +48,9 @@ const UpdateAFood = () => {
     form.additionalNotes.value = "";
     form.expireDate.value = "";
 
-    console.log(updatedAFood);
+    // console.log(updatedAFood);
     // send data to the server
-    fetch(`http://localhost:5000/foodItem/${_id}`, {
+    fetch(`https://food-web-server-side.vercel.app/foodItem/${_id}`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",
@@ -59,7 +59,7 @@ const UpdateAFood = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         if (data.modifiedCount > 0) {
           Swal.fire({
             title: "Success",

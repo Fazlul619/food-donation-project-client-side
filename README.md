@@ -16,4 +16,4 @@ SustenanceSwap is a React-based web project aimed at facilitating food donations
 
 ## Website
 
-Visit [SustenanceSwap](https://example.com) to learn more about the project and contribute to the cause.
+Visit [SustenanceSwap](earnest-strudel-49b0ac.netlify.app) to learn more about the project and contribute to the cause.

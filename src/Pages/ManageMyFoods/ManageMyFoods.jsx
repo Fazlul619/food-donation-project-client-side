@@ -10,7 +10,7 @@ const ManageMyFoods = () => {
   const [foodData, setFoodData] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/foodItem/manageMyFood", {
+    fetch("https://food-web-server-side.vercel.app/foodItem/manageMyFood", {
       credentials: "include",
     })
       .then((res) => res.json())
@@ -34,12 +34,12 @@ const ManageMyFoods = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/foodItem/${id}`, {
+        fetch(`https://food-web-server-side.vercel.app/foodItem/${id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())
           .then((data) => {
-            console.log(data);
+            // console.log(data);
             if (data.deletedCount > 0) {
               Swal.fire({
                 title: "Deleted!",

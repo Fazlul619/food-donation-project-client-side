@@ -6,7 +6,7 @@ import { Helmet } from "react-helmet";
 const AddFood = () => {
   const [title, setTitle] = useState("Add Food");
   const { user } = useContext(AuthContext);
-  console.log(user);
+  // console.log(user);
 
   const [Status, setStatus] = useState("");
   const handleStatus = (e) => {
@@ -46,9 +46,9 @@ const AddFood = () => {
     form.additionalNotes.value = "";
     form.expireDate.value = "";
 
-    console.log(foodItem);
+    // console.log(foodItem);
     // send data to the server
-    fetch("http://localhost:5000/foodItem", {
+    fetch("https://food-web-server-side.vercel.app/foodItem", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -57,7 +57,7 @@ const AddFood = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         if (data.insertedId) {
           Swal.fire({
             title: "Success",

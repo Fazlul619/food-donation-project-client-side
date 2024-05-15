@@ -44,7 +44,7 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
       // token code
-      console.log(currentUser);
+      // console.log(currentUser);
       const userEmail = currentUser?.email || user?.email;
       const loggedUser = { email: userEmail };
 
@@ -55,19 +55,19 @@ const AuthProvider = ({ children }) => {
       // if user exist then create a token
       if (currentUser) {
         axios
-          .post("http://localhost:5000/jwt", loggedUser, {
+          .post("https://food-web-server-side.vercel.app/jwt", loggedUser, {
             withCredentials: true,
           })
-          .then((res) => {
-            console.log("token res", res.data);
+          .then(() => {
+            // console.log("token res", res.data);
           });
       } else {
         axios
-          .post("http://localhost:5000/logout", loggedUser, {
+          .post("https://food-web-server-side.vercel.app/logout", loggedUser, {
             withCredentials: true,
           })
-          .then((res) => {
-            console.log(res.data);
+          .then(() => {
+            // console.log(res.data);
           });
       }
     });
