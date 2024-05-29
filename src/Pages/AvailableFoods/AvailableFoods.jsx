@@ -1,38 +1,111 @@
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useLoaderData } from "react-router-dom";
 import { AiFillCloseCircle } from "react-icons/ai";
 import clockImg from "../../assets/banner img/3898370_time_clock_icon.png";
 import peopleImg from "../../assets/banner img/3289562_family_group_peers_people_icon.png";
 import donarImg from "../../assets/banner img/5402435_account_profile_user_avatar_man_icon.png";
 import { Helmet } from "react-helmet";
+
 const AvailableFoods = () => {
   const [title, setTitle] = useState("Available Foods");
   const data = useLoaderData();
   const [layoutStatus, setLayoutStatus] = useState(false);
   const [searchedWords, setSearchedWords] = useState("");
   const [sort, setSort] = useState(false);
+  const [userLocation, setUserLocation] = useState({ lat: null, lon: null });
+  const [locationError, setLocationError] = useState("");
+
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setUserLocation({
+            lat: position.coords.latitude,
+            lon: position.coords.longitude,
+          });
+        },
+        (error) => {
+          let errorMessage = "";
+          switch (error.code) {
+            case error.PERMISSION_DENIED:
+              errorMessage = "User denied the request for Geolocation.";
+              break;
+            case error.POSITION_UNAVAILABLE:
+              errorMessage = "Location information is unavailable.";
+              break;
+            case error.TIMEOUT:
+              errorMessage = "The request to get user location timed out.";
+              break;
+            case error.UNKNOWN_ERROR:
+              errorMessage = "An unknown error occurred.";
+              break;
+            default:
+              errorMessage = "An unknown error occurred.";
+              break;
+          }
+          setLocationError(errorMessage);
+          console.error("Error getting location:", errorMessage);
+        }
+      );
+    } else {
+      setLocationError("Geolocation is not supported by this browser.");
+      console.error("Geolocation is not supported by this browser.");
+    }
+  }, []);
 
   const availableFood = data.filter((food) => food.Status === "available");
+
+  const calculateDistance = (lat1, lon1, lat2, lon2) => {
+    const R = 6371; // Radius of the Earth in km
+    const dLat = ((lat2 - lat1) * Math.PI) / 180;
+    const dLon = ((lon2 - lon1) * Math.PI) / 180;
+    const a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos((lat1 * Math.PI) / 180) *
+        Math.cos((lat2 * Math.PI) / 180) *
+        Math.sin(dLon / 2) *
+        Math.sin(dLon / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    const distance = R * c;
+    return distance.toFixed(2);
+  };
+
   let searchedItems = availableFood.filter((food) =>
     food.foodName.toLowerCase().includes(searchedWords.toLowerCase())
   );
 
+  if (userLocation.lat && userLocation.lon) {
+    searchedItems = searchedItems.filter((food) => {
+      if (
+        !food.pickupLocation ||
+        !food.pickupLocation.lat ||
+        !food.pickupLocation.lon
+      ) {
+        return true; // Include items without location data
+      }
+      const distance = calculateDistance(
+        userLocation.lat,
+        userLocation.lon,
+        food.pickupLocation.lat,
+        food.pickupLocation.lon
+      );
+      return distance < 5; // Assuming you want to filter items within 50km
+    });
+  }
+
   const sortedData = sort
-    ? availableFood.slice().sort((a, b) => {
+    ? searchedItems.slice().sort((a, b) => {
         const dateA = new Date(a.expireDate);
         const dateB = new Date(b.expireDate);
-
         return dateA - dateB;
       })
-    : availableFood;
-
-  // console.log(sortedData);
+    : searchedItems;
 
   return (
     <>
       <Helmet>
-        <title>SustenanceSwap|{title}</title>
+        <title>SustenanceSwap | {title}</title>
       </Helmet>
 
       <div className="mb-5 w-full relative">
@@ -41,9 +114,8 @@ const AvailableFoods = () => {
             type="text"
             value={searchedWords}
             onChange={(e) => setSearchedWords(e.target.value)}
-            className="bg-gray-100 outline-none border-none w-full px-2 py-3 "
+            className="bg-gray-100 outline-none border-none w-full px-2 py-3"
           />
-
           <span
             className="absolute top-[50%] right-4 translate-y-[-50%] cursor-pointer"
             onClick={() => setSearchedWords("")}
@@ -51,7 +123,6 @@ const AvailableFoods = () => {
             <AiFillCloseCircle className="text-2xl" />
           </span>
         </div>
-
         {searchedWords && searchedItems.length > 0 ? (
           <div className="absolute w-full max-h-96 overflow-auto p-2 bg-gray-300">
             {searchedItems.map((item) => (
@@ -68,7 +139,6 @@ const AvailableFoods = () => {
                       className="w-40 object-cover rounded-sm"
                     />
                   </div>
-
                   <div className="flex flex-col">
                     <h3 className="text-2xl font-bold">{item.foodName}</h3>
                     <span>Quantity: {item.foodQuantity}</span>
@@ -81,7 +151,6 @@ const AvailableFoods = () => {
                     </p>
                   </div>
                 </div>
-
                 <div className="flex flex-col items-center gap-1">
                   <img
                     src={item.photo ? `${item.photo}` : `${donarImg}`}
@@ -99,6 +168,9 @@ const AvailableFoods = () => {
             ))}
           </div>
         ) : null}
+        {locationError && (
+          <div className="mt-4 text-red-600">{locationError}</div>
+        )}
       </div>
       <div className="my-5">
         <button
@@ -112,7 +184,7 @@ const AvailableFoods = () => {
       </div>
 
       <div
-        className={`grid w-full${
+        className={`grid w-full ${
           layoutStatus
             ? "grid-cols-1 md:grid-cols-2 lg:grid-cols-2"
             : "grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
@@ -126,16 +198,14 @@ const AvailableFoods = () => {
             pickupLocation,
             additionalNotes,
             expireDate,
-
             photo,
-
             name,
             _id,
           } = food;
 
           return (
             <div
-              key={_id}
+              key={food._id}
               className=" mb-4 w-96  border rounded-xl border-green-400"
             >
               <div className="flex gap-2  p-4">
@@ -162,7 +232,6 @@ const AvailableFoods = () => {
                     </p>
                   </div>
                 </div>
-
                 <p className="font-medium">{additionalNotes}</p>
                 <div className=" flex justify-between p-2">
                   <div className="flex items-center font-semibold">
@@ -186,7 +255,6 @@ const AvailableFoods = () => {
           );
         })}
       </div>
-
       <Button onClick={() => setLayoutStatus(!layoutStatus)} className="my-5">
         Change layout
       </Button>
