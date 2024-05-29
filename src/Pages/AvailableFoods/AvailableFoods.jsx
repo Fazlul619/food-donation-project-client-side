@@ -57,7 +57,7 @@ const AvailableFoods = () => {
   const availableFood = data.filter((food) => food.Status === "available");
 
   const calculateDistance = (lat1, lon1, lat2, lon2) => {
-    const R = 6371; // Radius of the Earth in km
+    const R = 6371;
     const dLat = ((lat2 - lat1) * Math.PI) / 180;
     const dLon = ((lon2 - lon1) * Math.PI) / 180;
     const a =
@@ -82,7 +82,7 @@ const AvailableFoods = () => {
         !food.pickupLocation.lat ||
         !food.pickupLocation.lon
       ) {
-        return true; // Include items without location data
+        return true;
       }
       const distance = calculateDistance(
         userLocation.lat,
@@ -90,7 +90,7 @@ const AvailableFoods = () => {
         food.pickupLocation.lat,
         food.pickupLocation.lon
       );
-      return distance < 5; // Assuming you want to filter items within 50km
+      return distance < 50;
     });
   }
 
